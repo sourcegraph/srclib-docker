@@ -106,6 +106,7 @@ func (c *GraphCmd) Execute(args []string) error {
 				DefRepo:     uri,
 				DefUnitType: DirectRepoLinkUnitType,
 				DefUnit:     ".",
+				DefPath:     ".",
 				File:        dfpath,
 				Start:       start,
 				End:         end,

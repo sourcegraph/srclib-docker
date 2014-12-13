@@ -29,12 +29,23 @@
       "DefRepo": "github.com/foo/bar",
       "DefUnitType": "x-repo",
       "DefUnit": ".",
-      "DefPath": "",
+      "DefPath": ".",
       "Def": false,
       "Repo": "",
       "File": "subdir/Dockerfile",
       "Start": 26,
       "End": 44
+    },
+    {
+      "DefRepo": "sourcegraph.com/foo/bar",
+      "DefUnitType": "x-repo",
+      "DefUnit": ".",
+      "DefPath": ".",
+      "Def": false,
+      "Repo": "",
+      "File": "subdir/Dockerfile",
+      "Start": 96,
+      "End": 119
     },
     {
       "DefRepo": "github.com/docker/docker",
@@ -68,17 +79,6 @@
       "File": "subdir/Dockerfile",
       "Start": 15,
       "End": 18
-    },
-    {
-      "DefRepo": "sourcegraph.com/foo/bar",
-      "DefUnitType": "x-repo",
-      "DefUnit": ".",
-      "DefPath": "",
-      "Def": false,
-      "Repo": "",
-      "File": "subdir/Dockerfile",
-      "Start": 96,
-      "End": 119
     }
   ]
 }
