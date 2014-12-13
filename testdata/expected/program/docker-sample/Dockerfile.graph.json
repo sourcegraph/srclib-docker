@@ -28,7 +28,7 @@
     {
       "DefRepo": "github.com/docker/docker",
       "DefUnitType": "x-link",
-      "DefUnit": "",
+      "DefUnit": ".",
       "DefPath": "https://docs.docker.com/reference/builder/#add",
       "Def": false,
       "Repo": "",
@@ -39,7 +39,7 @@
     {
       "DefRepo": "github.com/docker/docker",
       "DefUnitType": "x-link",
-      "DefUnit": "",
+      "DefUnit": ".",
       "DefPath": "https://docs.docker.com/reference/builder/#cmd",
       "Def": false,
       "Repo": "",
@@ -50,7 +50,7 @@
     {
       "DefRepo": "github.com/docker/docker",
       "DefUnitType": "x-link",
-      "DefUnit": "",
+      "DefUnit": ".",
       "DefPath": "https://docs.docker.com/reference/builder/#env",
       "Def": false,
       "Repo": "",
@@ -61,7 +61,7 @@
     {
       "DefRepo": "github.com/docker/docker",
       "DefUnitType": "x-link",
-      "DefUnit": "",
+      "DefUnit": ".",
       "DefPath": "https://docs.docker.com/reference/builder/#from",
       "Def": false,
       "Repo": "",
@@ -72,7 +72,7 @@
     {
       "DefRepo": "github.com/docker/docker",
       "DefUnitType": "x-link",
-      "DefUnit": "",
+      "DefUnit": ".",
       "DefPath": "https://docs.docker.com/reference/builder/#maintainer",
       "Def": false,
       "Repo": "",
@@ -83,7 +83,7 @@
     {
       "DefRepo": "github.com/docker/docker",
       "DefUnitType": "x-link",
-      "DefUnit": "",
+      "DefUnit": ".",
       "DefPath": "https://docs.docker.com/reference/builder/#run",
       "Def": false,
       "Repo": "",
@@ -94,7 +94,7 @@
     {
       "DefRepo": "github.com/docker/docker",
       "DefUnitType": "x-link",
-      "DefUnit": "",
+      "DefUnit": ".",
       "DefPath": "https://docs.docker.com/reference/builder/#user",
       "Def": false,
       "Repo": "",
@@ -105,7 +105,7 @@
     {
       "DefRepo": "github.com/docker/docker",
       "DefUnitType": "x-link",
-      "DefUnit": "",
+      "DefUnit": ".",
       "DefPath": "https://docs.docker.com/reference/builder/#volume",
       "Def": false,
       "Repo": "",
@@ -116,7 +116,7 @@
     {
       "DefRepo": "github.com/docker/docker",
       "DefUnitType": "x-link",
-      "DefUnit": "",
+      "DefUnit": ".",
       "DefPath": "https://docs.docker.com/reference/builder/#workdir",
       "Def": false,
       "Repo": "",

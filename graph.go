@@ -105,6 +105,7 @@ func (c *GraphCmd) Execute(args []string) error {
 			o.Refs = append(o.Refs, &graph.Ref{
 				DefRepo:     uri,
 				DefUnitType: DirectRepoLinkUnitType,
+				DefUnit:     ".",
 				File:        dfpath,
 				Start:       start,
 				End:         end,
@@ -118,6 +119,7 @@ func (c *GraphCmd) Execute(args []string) error {
 			o.Refs = append(o.Refs, &graph.Ref{
 				DefRepo:     "github.com/docker/docker",
 				DefUnitType: DirectURLLinkUnitType,
+				DefUnit:     ".",
 				DefPath:     graph.DefPath("https://docs.docker.com/reference/builder/#" + strings.ToLower(instruction)),
 				File:        dfpath,
 				Start:       start,

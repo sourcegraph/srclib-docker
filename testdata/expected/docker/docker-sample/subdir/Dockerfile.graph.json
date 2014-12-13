@@ -28,7 +28,7 @@
     {
       "DefRepo": "github.com/foo/bar",
       "DefUnitType": "x-repo",
-      "DefUnit": "",
+      "DefUnit": ".",
       "DefPath": "",
       "Def": false,
       "Repo": "",
@@ -39,7 +39,7 @@
     {
       "DefRepo": "github.com/docker/docker",
       "DefUnitType": "x-link",
-      "DefUnit": "",
+      "DefUnit": ".",
       "DefPath": "https://docs.docker.com/reference/builder/#cmd",
       "Def": false,
       "Repo": "",
@@ -50,7 +50,7 @@
     {
       "DefRepo": "github.com/docker/docker",
       "DefUnitType": "x-link",
-      "DefUnit": "",
+      "DefUnit": ".",
       "DefPath": "https://docs.docker.com/reference/builder/#from",
       "Def": false,
       "Repo": "",
@@ -61,7 +61,7 @@
     {
       "DefRepo": "github.com/docker/docker",
       "DefUnitType": "x-link",
-      "DefUnit": "",
+      "DefUnit": ".",
       "DefPath": "https://docs.docker.com/reference/builder/#run",
       "Def": false,
       "Repo": "",
@@ -72,7 +72,7 @@
     {
       "DefRepo": "sourcegraph.com/foo/bar",
       "DefUnitType": "x-repo",
-      "DefUnit": "",
+      "DefUnit": ".",
       "DefPath": "",
       "Def": false,
       "Repo": "",
