@@ -17,7 +17,6 @@ var GlobalOpt struct {
 	Verbose bool `short:"v" description:"show verbose output"`
 }
 
-
 func init() {
 	parser.LongDescription = "srclib-docker is a srclib toolchain that scans and analyzes Dockerfiles in a repository or tree."
 	parser.AddGroup("Global options", "", &GlobalOpt)

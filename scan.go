@@ -10,8 +10,8 @@ import (
 	"os"
 	"path/filepath"
 
+	"sourcegraph.com/sourcegraph/srclib"
 	"sourcegraph.com/sourcegraph/srclib-docker/dockerfile"
-	"sourcegraph.com/sourcegraph/srclib/toolchain"
 	"sourcegraph.com/sourcegraph/srclib/unit"
 )
 
@@ -113,7 +113,7 @@ func (c *ScanCmd) Execute(args []string) error {
 			Files:        []string{dfpath},
 			Data:         string(data),
 			Dependencies: baseImages,
-			Ops:          map[string]*toolchain.ToolRef{"depresolve": nil, "graph": nil},
+			Ops:          map[string]*srclib.ToolRef{"depresolve": nil, "graph": nil},
 		}
 	}
 

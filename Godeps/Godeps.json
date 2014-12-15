@@ -158,8 +158,8 @@
 		},
 		{
 			"ImportPath": "sourcegraph.com/sourcegraph/srclib",
-			"Comment": "v0.0.28-21-g82ce131",
-			"Rev": "82ce131c13cf4a8afc179401138a21bac9f25753"
+			"Comment": "v0.0.28-28-gd71a8d3",
+			"Rev": "d71a8d346d95c2dcd53a0b5c47841c5b37812e63"
 		}
 	]
 }
