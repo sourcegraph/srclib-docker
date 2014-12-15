@@ -12,16 +12,6 @@ import (
 	"sourcegraph.com/sourcegraph/srclib/unit"
 )
 
-// DockerImageDynRefCloneURL is a special repository clone URL value
-// that indicates that the dep or ref's unit is a Docker image spec.
-//
-// TODO(sqs): this is hacky.
-var (
-	DockerImageDynRefCloneURL = "https://dynamic-ref.srclib.org/x-docker-image"
-	DirectRepoLinkUnitType    = "x-repo"
-	DirectURLLinkUnitType     = "x-link"
-)
-
 func init() {
 	_, err := parser.AddCommand("depresolve",
 		"resolve a Dockerfile's dependencies",
@@ -56,16 +46,16 @@ func (c *DepResolveCmd) Execute(args []string) error {
 
 		res[i] = &dep.Resolution{Raw: rawDep}
 
-		// hostname, name, repo, tag, err := resolveImageRef(baseImage)
-		_, _, _, tag, err := resolveImageRef(baseImage)
+		hostname, name, repo, tag, err := resolveImageRef(baseImage)
+		// _, _, _, tag, err := resolveImageRef(baseImage)
 		if err == nil {
-			res[i].Target = &dep.ResolvedTarget{
-				ToRepoCloneURL:  DockerImageDynRefCloneURL,
-				ToUnitType:      DockerfileUnitType,
-				ToUnit:          baseImage,
-				ToVersionString: tag,
-			}
-			// res[i].Error = fmt.Sprintf("Don't know how to resolve Docker image hostname %q name %q tag %q to a VCS repository.", hostname, name, tag)
+			// res[i].Target = &dep.ResolvedTarget{
+			// 	ToRepoCloneURL:  DockerImageDynRefCloneURL,
+			// 	ToUnitType:      DockerfileUnitType,
+			// 	ToUnit:          baseImage,
+			// 	ToVersionString: tag,
+			// }
+			res[i].Error = fmt.Sprintf("Don't know how to resolve Docker image hostname %q name %q repo %q tag %q to a VCS repository.", hostname, name, repo, tag)
 		} else {
 			res[i].Error = err.Error()
 		}

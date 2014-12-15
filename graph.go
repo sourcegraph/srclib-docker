@@ -12,6 +12,7 @@ import (
 	"strings"
 
 	"sourcegraph.com/sourcegraph/srclib-docker/dockerfile"
+	"sourcegraph.com/sourcegraph/srclib/ann"
 	"sourcegraph.com/sourcegraph/srclib/graph"
 	"sourcegraph.com/sourcegraph/srclib/grapher"
 	"sourcegraph.com/sourcegraph/srclib/unit"
@@ -72,63 +73,64 @@ func (c *GraphCmd) Execute(args []string) error {
 		Data: dfJSON,
 	})
 
-	// Add refs.
+	// Add link annotations.
 	dataLCStr := string(bytes.ToLower(data))
 	df, err := dockerfile.Decode(bytes.NewReader(data))
 	if err == nil {
-		// Add ref to base image.
+		// Add link to base image.
 		if df.From != "" {
-			_, _, _, _, err := resolveImageRef(df.From)
+			_, _, dockerRepo, _, err := resolveImageRef(df.From)
 			if err == nil {
 				start, end := findStartEnd(dataLCStr, df.From)
 				if start != -1 {
-					o.Refs = append(o.Refs, &graph.Ref{
-						DefRepo:     DockerImageDynRefCloneURL,
-						DefUnitType: DockerfileUnitType,
-						DefUnit:     df.From,
-						DefPath:     ".",
-						File:        dfpath,
-						Start:       start,
-						End:         end,
-					})
+					ann := &ann.Ann{
+						File:  dfpath,
+						Start: start,
+						End:   end,
+					}
+					if err := ann.SetLinkURL("https://registry.hub.docker.com/_/" + dockerRepo); err != nil {
+						return err
+					}
+					o.Anns = append(o.Anns, ann)
 				}
 			} else {
-				log.Printf("Error parsing image ref %q: %s. Skipping ref.", df.From, err)
+				log.Printf("Error parsing base image FROM link %q: %s. Skipping link.", df.From, err)
 			}
 		}
 
-		// Add refs to things that look like repo URIs.
+		// Add links to things that look like repo URIs.
 		uriIdxs := repoURIPat.FindAllStringIndex(dataLCStr, -1)
 		for _, m := range uriIdxs {
 			start, end := m[0], m[1]
 			uri := string(data[start:end])
-			o.Refs = append(o.Refs, &graph.Ref{
-				DefRepo:     uri,
-				DefUnitType: DirectRepoLinkUnitType,
-				DefUnit:     ".",
-				DefPath:     ".",
-				File:        dfpath,
-				Start:       start,
-				End:         end,
-			})
+			ann := &ann.Ann{
+				File:  dfpath,
+				Start: start,
+				End:   end,
+			}
+			if err := ann.SetLinkURL("https://sourcegraph.com/" + uri); err != nil {
+				return err
+			}
+			o.Anns = append(o.Anns, ann)
 		}
 
+		// Add links to docs for Dockerfile instructions.
 		instrIdxs := instructionPat.FindAllStringIndex(dataLCStr, -1)
 		for _, m := range instrIdxs {
 			start, end := m[0], m[1]
 			instruction := string(data[start:end])
-			o.Refs = append(o.Refs, &graph.Ref{
-				DefRepo:     "github.com/docker/docker",
-				DefUnitType: DirectURLLinkUnitType,
-				DefUnit:     ".",
-				DefPath:     graph.DefPath("https://docs.docker.com/reference/builder/#" + strings.ToLower(instruction)),
-				File:        dfpath,
-				Start:       start,
-				End:         end,
-			})
+			ann := &ann.Ann{
+				File:  dfpath,
+				Start: start,
+				End:   end,
+			}
+			if err := ann.SetLinkURL("https://docs.docker.com/reference/builder/#" + strings.ToLower(instruction)); err != nil {
+				return err
+			}
+			o.Anns = append(o.Anns, ann)
 		}
 	} else {
-		log.Printf("Error parsing Dockerfile %q: %s. Skipping refs.", dfpath, err)
+		log.Printf("Error parsing Dockerfile %q: %s. Skipping links.", dfpath, err)
 	}
 
 	b, err := json.MarshalIndent(o, "", "  ")
