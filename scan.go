@@ -35,6 +35,10 @@ type ScanCmd struct {
 
 var scanCmd ScanCmd
 
+func ignoreWalkError(err error) bool {
+	return os.IsPermission(err) || os.IsNotExist(err)
+}
+
 func (c *ScanCmd) Execute(args []string) error {
 	// We don't need any config yet, but read it anyway so that we
 	// don't silently allow people to send us bad JSON.
@@ -49,7 +53,7 @@ func (c *ScanCmd) Execute(args []string) error {
 	var dockerfiles []string
 	root := "."
 	err := filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
-		if err != nil {
+		if err != nil && !ignoreWalkError(err) {
 			return err
 		}
 
@@ -62,7 +66,7 @@ func (c *ScanCmd) Execute(args []string) error {
 			// Don't traverse into git submodules.
 			if path != root {
 				fs, err := ioutil.ReadDir(path)
-				if err != nil {
+				if err != nil && !ignoreWalkError(err) {
 					return err
 				}
 				for _, f := range fs {
