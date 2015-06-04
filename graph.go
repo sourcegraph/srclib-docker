@@ -11,7 +11,7 @@ import (
 
 	"strings"
 
-	"sourcegraph.com/sourcegraph/srclib-docker/dockerfile"
+	"sourcegraph.com/sourcegraph/srclib-docker/df"
 	"sourcegraph.com/sourcegraph/srclib/ann"
 	"sourcegraph.com/sourcegraph/srclib/graph"
 	"sourcegraph.com/sourcegraph/srclib/grapher"
@@ -75,13 +75,13 @@ func (c *GraphCmd) Execute(args []string) error {
 
 	// Add link annotations.
 	dataLCStr := string(bytes.ToLower(data))
-	df, err := dockerfile.Decode(bytes.NewReader(data))
+	d, err := df.Decode(bytes.NewReader(data))
 	if err == nil {
 		// Add link to base image.
-		if df.From != "" {
-			_, _, dockerRepo, _, err := resolveImageRef(df.From)
+		if d.From != "" {
+			_, _, dockerRepo, _, err := resolveImageRef(d.From)
 			if err == nil {
-				start, end := findStartEnd(dataLCStr, df.From)
+				start, end := findStartEnd(dataLCStr, d.From)
 				if start != -1 {
 					ann := &ann.Ann{
 						File:  dfpath,
@@ -94,7 +94,7 @@ func (c *GraphCmd) Execute(args []string) error {
 					o.Anns = append(o.Anns, ann)
 				}
 			} else {
-				log.Printf("Error parsing base image FROM link %q: %s. Skipping link.", df.From, err)
+				log.Printf("Error parsing base image FROM link %q: %s. Skipping link.", d.From, err)
 			}
 		}
 
