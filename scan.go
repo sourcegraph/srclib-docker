@@ -11,7 +11,7 @@ import (
 	"path/filepath"
 
 	"sourcegraph.com/sourcegraph/srclib"
-	"sourcegraph.com/sourcegraph/srclib-docker/dockerfile"
+	"sourcegraph.com/sourcegraph/srclib-docker/df"
 	"sourcegraph.com/sourcegraph/srclib/unit"
 )
 
@@ -101,10 +101,10 @@ func (c *ScanCmd) Execute(args []string) error {
 
 		// Parse Dockerfile.
 		var baseImages []interface{}
-		df, err := dockerfile.Decode(bytes.NewReader(data))
+		d, err := df.Decode(bytes.NewReader(data))
 		if err == nil {
-			if df.From != "" {
-				baseImages = append(baseImages, df.From)
+			if d.From != "" {
+				baseImages = append(baseImages, d.From)
 			}
 		} else {
 			log.Printf("Error parsing Dockerfile %q: %s. Adding without dependencies.", dfpath, err)

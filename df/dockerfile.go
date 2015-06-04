@@ -1,7 +1,7 @@
-// Package dockerfile is a wrapper around
+// Package df is a wrapper around
 // github.com/docker/docker/builder/parser to make it easier to parse
 // Dockerfile syntax.
-package dockerfile
+package df
 
 import (
 	"io"
